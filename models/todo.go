@@ -11,7 +11,7 @@ type Todo struct {
 	Id              int            `json:"id" gorm:"id"`
 	ActivityGroupId string         `json:"activity_group_id" gorm:"activity_group_id"`
 	Title           string         `json:"title" gorm:"title"`
-	IsActive        string         `json:"is_active" gorm:"is_active"`
+	IsActive        int            `json:"is_active" gorm:"is_active"`
 	Priority        string         `json:"priority" gorm:"priority"`
 	CreatedAt       time.Time      `json:"created_at" gorm:"created_at"`
 	UpdatedAt       time.Time      `json:"updated_at" gorm:"updated_at"`
