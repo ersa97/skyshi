@@ -23,6 +23,7 @@ func (s *SkyshiService) GetAllActivityGroup(w http.ResponseWriter, r *http.Reque
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(models.Response{
+			Status:  "failed",
 			Message: err.Error(),
 		})
 		return
@@ -30,7 +31,6 @@ func (s *SkyshiService) GetAllActivityGroup(w http.ResponseWriter, r *http.Reque
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(models.Response{
-		Status:  "success",
 		Message: "success",
 		Data:    result,
 	})
@@ -45,6 +45,7 @@ func (s *SkyshiService) GetOneActivityGroup(w http.ResponseWriter, r *http.Reque
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(models.Response{
+			Status:  "failed",
 			Message: err.Error(),
 		})
 		return
@@ -52,7 +53,6 @@ func (s *SkyshiService) GetOneActivityGroup(w http.ResponseWriter, r *http.Reque
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(models.Response{
-		Status:  "success",
 		Message: "success",
 		Data:    result,
 	})
@@ -65,6 +65,7 @@ func (s *SkyshiService) CreateActivityGroup(w http.ResponseWriter, r *http.Reque
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(models.Response{
+			Status:  "failed",
 			Message: "Get Body Failed",
 		})
 		return
@@ -78,6 +79,7 @@ func (s *SkyshiService) CreateActivityGroup(w http.ResponseWriter, r *http.Reque
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(models.Response{
+			Status:  "failed",
 			Message: err.Error(),
 		})
 		return
@@ -85,7 +87,6 @@ func (s *SkyshiService) CreateActivityGroup(w http.ResponseWriter, r *http.Reque
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(models.Response{
-		Status:  "success",
 		Message: "success",
 		Data:    result,
 	})
@@ -107,7 +108,6 @@ func (s *SkyshiService) DeleteActivityGroup(w http.ResponseWriter, r *http.Reque
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(models.Response{
-		Status:  "success",
 		Message: "success",
 	})
 
@@ -119,6 +119,7 @@ func (s *SkyshiService) UpdateActivityGroup(w http.ResponseWriter, r *http.Reque
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(models.Response{
+			Status:  "failed",
 			Message: "Get Body Failed",
 		})
 		return
@@ -132,6 +133,7 @@ func (s *SkyshiService) UpdateActivityGroup(w http.ResponseWriter, r *http.Reque
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(models.Response{
+			Status:  "failed",
 			Message: err.Error(),
 		})
 		return
@@ -139,7 +141,6 @@ func (s *SkyshiService) UpdateActivityGroup(w http.ResponseWriter, r *http.Reque
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(models.Response{
-		Status:  "success",
 		Message: "success",
 		Data:    result,
 	})

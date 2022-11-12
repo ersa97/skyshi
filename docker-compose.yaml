@@ -1,9 +1,9 @@
 version: '3'
 
 services:
-  mysql: 
+  mysql:
     container_name: todo_database
-    image : mysql:latest
+    image: mysql:latest
     ports:
       - 3306:3306
     environment:
@@ -19,4 +19,4 @@ services:
     depends_on:
       - mysql
     ports:
-      - 8080:3030
+      - 3030:3030

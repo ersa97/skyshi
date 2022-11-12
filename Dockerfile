@@ -10,6 +10,7 @@ FROM alpine:latest
 WORKDIR /usr/bin
 
 COPY .env .env
+COPY migrations migrations
 
 COPY --from=builder /application/application /usr/bin/application
 

@@ -3,7 +3,6 @@ package models
 import (
 	"errors"
 	"fmt"
-	"time"
 
 	"gorm.io/gorm"
 )
@@ -11,12 +10,9 @@ import (
 type Activity struct {
 	gorm.Model
 
-	Id        int            `json:"id" gorm:"id"`
-	Email     string         `json:"email" gorm:"email"`
-	Title     string         `json:"title" gorm:"title"`
-	CreatedAt time.Time      `json:"created_at" gorm:"created_at"`
-	UpdatedAt time.Time      `json:"updated_at" gorm:"updated_at"`
-	DeletedAt gorm.DeletedAt `json:"deleted_at" gorm:"deleted_at"`
+	Id    int    `json:"id" gorm:"id"`
+	Email string `json:"email" gorm:"email"`
+	Title string `json:"title" gorm:"title"`
 }
 type Activities []Activity
 
@@ -70,11 +66,9 @@ func (a *Activity) CreateActivity(DB *gorm.DB) (out *Activity, err error) {
 	fmt.Println(a)
 
 	tx := DB.Table(a.TableName()).Create(&Activity{
-		Id:        a.Id,
-		Email:     a.Email,
-		Title:     a.Title,
-		CreatedAt: a.CreatedAt,
-		DeletedAt: a.DeletedAt,
+		Id:    a.Id,
+		Email: a.Email,
+		Title: a.Title,
 	}).Last(&out)
 
 	if tx.Error != nil {
@@ -87,12 +81,9 @@ func (a *Activity) CreateActivity(DB *gorm.DB) (out *Activity, err error) {
 func (a *Activity) UpdateActivity(DB *gorm.DB) (out *Activity, err error) {
 
 	tx := DB.Table(a.TableName()).Updates(&Activity{
-		Id:        a.Id,
-		Email:     a.Email,
-		Title:     a.Title,
-		CreatedAt: a.CreatedAt,
-		UpdatedAt: a.UpdatedAt,
-		DeletedAt: a.DeletedAt,
+		Id:    a.Id,
+		Email: a.Email,
+		Title: a.Title,
 	}).Last(&out)
 
 	if tx.Error != nil {

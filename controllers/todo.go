@@ -19,6 +19,7 @@ func (s *SkyshiService) GetAllTodoItems(w http.ResponseWriter, r *http.Request) 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(models.Response{
+			Status:  "failed",
 			Message: err.Error(),
 		})
 		return
@@ -26,7 +27,6 @@ func (s *SkyshiService) GetAllTodoItems(w http.ResponseWriter, r *http.Request) 
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(models.Response{
-		Status:  "success",
 		Message: "success",
 		Data:    result,
 	})
@@ -36,12 +36,14 @@ func (s *SkyshiService) GetOneTodoItems(w http.ResponseWriter, r *http.Request) 
 
 	var todo models.Todo
 
-	todo.Id, _ = strconv.Atoi(mux.Vars(r)["id"])
+	id, _ := strconv.Atoi(mux.Vars(r)["id"])
+	todo.ID = uint(id)
 
 	result, err := todo.GetOneTodo(s.DB)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(models.Response{
+			Status:  "failed",
 			Message: err.Error(),
 		})
 		return
@@ -49,7 +51,6 @@ func (s *SkyshiService) GetOneTodoItems(w http.ResponseWriter, r *http.Request) 
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(models.Response{
-		Status:  "success",
 		Message: "success",
 		Data:    result,
 	})
@@ -62,6 +63,7 @@ func (s *SkyshiService) CreateTodoItems(w http.ResponseWriter, r *http.Request) 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(models.Response{
+			Status:  "failed",
 			Message: "Get Body Failed",
 		})
 		return
@@ -76,6 +78,7 @@ func (s *SkyshiService) CreateTodoItems(w http.ResponseWriter, r *http.Request) 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(models.Response{
+			Status:  "failed",
 			Message: err.Error(),
 		})
 		return
@@ -83,7 +86,6 @@ func (s *SkyshiService) CreateTodoItems(w http.ResponseWriter, r *http.Request) 
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(models.Response{
-		Status:  "success",
 		Message: "success",
 		Data:    result,
 	})
@@ -92,12 +94,14 @@ func (s *SkyshiService) DeleteTodoItems(w http.ResponseWriter, r *http.Request) 
 
 	var todo models.Todo
 
-	todo.Id, _ = strconv.Atoi(mux.Vars(r)["id"])
+	id, _ := strconv.Atoi(mux.Vars(r)["id"])
+	todo.ID = uint(id)
 
 	err := todo.DeleteTodo(s.DB)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(models.Response{
+			Status:  "failed",
 			Message: err.Error(),
 		})
 		return
@@ -105,7 +109,7 @@ func (s *SkyshiService) DeleteTodoItems(w http.ResponseWriter, r *http.Request) 
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(models.Response{
-		Status:  "success",
+		Status:  "failed",
 		Message: "success",
 	})
 
@@ -118,12 +122,14 @@ func (s *SkyshiService) UpdateTodoItems(w http.ResponseWriter, r *http.Request) 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(models.Response{
+			Status:  "failed",
 			Message: "Get Body Failed",
 		})
 		return
 	}
 
-	body.Id, _ = strconv.Atoi(mux.Vars(r)["id"])
+	id, _ := strconv.Atoi(mux.Vars(r)["id"])
+	body.ID = uint(id)
 
 	body.UpdatedAt = time.Now()
 
@@ -133,6 +139,7 @@ func (s *SkyshiService) UpdateTodoItems(w http.ResponseWriter, r *http.Request) 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(models.Response{
+			Status:  "failed",
 			Message: err.Error(),
 		})
 		return
@@ -140,7 +147,6 @@ func (s *SkyshiService) UpdateTodoItems(w http.ResponseWriter, r *http.Request) 
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(models.Response{
-		Status:  "success",
 		Message: "success",
 		Data:    result,
 	})
