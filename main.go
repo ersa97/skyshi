@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"skyshi/controllers"
+	"skyshi/models"
 	"skyshi/routes"
 
 	"github.com/joho/godotenv"
@@ -29,7 +30,7 @@ func main() {
 		log.Println("Error DB")
 	}
 
-	// db.AutoMigrate(models.Activity{}, models.Todo{})
+	db.AutoMigrate(&models.Activity{}, &models.Todo{})
 
 	skyshiService := controllers.SkyshiService{
 		DB: db,
