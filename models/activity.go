@@ -9,6 +9,8 @@ import (
 )
 
 type Activity struct {
+	gorm.Model
+
 	Id        int            `json:"id" gorm:"id"`
 	Email     string         `json:"email" gorm:"email"`
 	Title     string         `json:"title" gorm:"title"`
