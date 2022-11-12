@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"skyshi/models"
 	"strconv"
@@ -70,6 +71,8 @@ func (s *SkyshiService) CreateActivityGroup(w http.ResponseWriter, r *http.Reque
 	}
 
 	body.CreatedAt = time.Now()
+
+	fmt.Println(body)
 
 	result, err := body.CreateActivity(s.DB)
 	if err != nil {

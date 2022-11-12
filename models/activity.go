@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"fmt"
 	"time"
 
 	"gorm.io/gorm"
@@ -47,12 +48,13 @@ func (a *Activity) GetOneActivity(DB *gorm.DB) (out *Activity, err error) {
 
 func (a *Activity) CreateActivity(DB *gorm.DB) (out *Activity, err error) {
 
+	fmt.Println(a)
+
 	tx := DB.Table(a.TableName()).Create(&Activity{
 		Id:        a.Id,
 		Email:     a.Email,
 		Title:     a.Title,
 		CreatedAt: a.CreatedAt,
-		UpdatedAt: a.UpdatedAt,
 		DeletedAt: a.DeletedAt,
 	}).Last(&out)
 
