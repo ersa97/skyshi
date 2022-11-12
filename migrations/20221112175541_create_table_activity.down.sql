@@ -1,1 +1,1 @@
-DROP TABLE activity;
+DROP TABLE activities;

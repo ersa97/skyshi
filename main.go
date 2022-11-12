@@ -33,7 +33,7 @@ func init() {
 	}
 	err = m.Up()
 	if err != nil {
-		log.Fatal("ERROR Migrate")
+		log.Fatal("ERROR Migrate", err)
 	} else {
 		log.Println("SUCCESS Migrate")
 	}

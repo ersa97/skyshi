@@ -36,8 +36,7 @@ func (s *SkyshiService) GetOneTodoItems(w http.ResponseWriter, r *http.Request) 
 
 	var todo models.Todo
 
-	id, _ := strconv.Atoi(mux.Vars(r)["id"])
-	todo.ID = uint(id)
+	todo.Id, _ = strconv.Atoi(mux.Vars(r)["id"])
 
 	result, err := todo.GetOneTodo(s.DB)
 	if err != nil {
@@ -94,8 +93,7 @@ func (s *SkyshiService) DeleteTodoItems(w http.ResponseWriter, r *http.Request) 
 
 	var todo models.Todo
 
-	id, _ := strconv.Atoi(mux.Vars(r)["id"])
-	todo.ID = uint(id)
+	todo.Id, _ = strconv.Atoi(mux.Vars(r)["id"])
 
 	err := todo.DeleteTodo(s.DB)
 	if err != nil {
@@ -128,8 +126,7 @@ func (s *SkyshiService) UpdateTodoItems(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	id, _ := strconv.Atoi(mux.Vars(r)["id"])
-	body.ID = uint(id)
+	body.Id, _ = strconv.Atoi(mux.Vars(r)["id"])
 
 	body.UpdatedAt = time.Now()
 

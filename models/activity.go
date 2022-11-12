@@ -3,21 +3,23 @@ package models
 import (
 	"errors"
 	"fmt"
+	"time"
 
 	"gorm.io/gorm"
 )
 
 type Activity struct {
-	gorm.Model
-
-	Id    int    `json:"id" gorm:"id"`
-	Email string `json:"email" gorm:"email"`
-	Title string `json:"title" gorm:"title"`
+	Id        int            `json:"id" gorm:"activity_group_id"`
+	Email     string         `json:"email" gorm:"email"`
+	Title     string         `json:"title" gorm:"title"`
+	CreatedAt time.Time      `json:"created_at" gorm:"created_at"`
+	UpdatedAt time.Time      `json:"updated_at" gorm:"updated_at"`
+	DeletedAt gorm.DeletedAt `gorm:"deleted_at"`
 }
 type Activities []Activity
 
 func (Activity) TableName() string {
-	return "activity"
+	return "activities"
 }
 
 func (a *Activity) GetAllActivity(DB *gorm.DB) (out *Activities, err error) {

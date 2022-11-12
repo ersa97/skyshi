@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `todo` (
+CREATE TABLE IF NOT EXISTS `todos` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `created_at` datetime(3) DEFAULT NULL,
   `updated_at` datetime(3) DEFAULT NULL,

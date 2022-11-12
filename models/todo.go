@@ -2,22 +2,25 @@ package models
 
 import (
 	"errors"
+	"time"
 
 	"gorm.io/gorm"
 )
 
 type Todo struct {
-	gorm.Model
-
-	ActivityGroupId int    `json:"activity_group_id" gorm:"activity_group_id"`
-	Title           string `json:"title" gorm:"title"`
-	IsActive        *bool  `json:"is_active" gorm:"is_active"`
-	Priority        string `json:"priority" gorm:"priority"`
+	Id              int            `json:"id" gorm:"id"`
+	ActivityGroupId int            `json:"activity_group_id" gorm:"activity_group_id"`
+	Title           string         `json:"title" gorm:"title"`
+	IsActive        *bool          `json:"is_active" gorm:"is_active"`
+	Priority        string         `json:"priority" gorm:"priority"`
+	CreatedAt       time.Time      `json:"created_at" gorm:"created_at"`
+	UpdatedAt       time.Time      `json:"updated_at" gorm:"updated_at"`
+	DeletedAt       gorm.DeletedAt `gorm:"deleted_at"`
 }
 type Todos []Todo
 
 func (Todo) TableName() string {
-	return "todo"
+	return "todos"
 }
 
 func (t *Todo) GetAllTodo(DB *gorm.DB) (out *Todos, err error) {
@@ -38,7 +41,7 @@ func (t *Todo) GetAllTodo(DB *gorm.DB) (out *Todos, err error) {
 func (t *Todo) GetOneTodo(DB *gorm.DB) (out *Todos, err error) {
 
 	tx := DB.Table(t.TableName())
-	tx.First(&out, "id = ?", t.ID)
+	tx.First(&out, "id = ?", t.Id)
 
 	if tx.RowsAffected == 0 {
 		return nil, errors.New("data not found")
