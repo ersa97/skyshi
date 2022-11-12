@@ -27,11 +27,25 @@ func (a *Activity) GetAllActivity(DB *gorm.DB) (out *Activities, err error) {
 	tx := DB.Table(a.TableName())
 	tx.Find(&out)
 
-	if tx.Error != nil {
+	if tx.RowsAffected == 0 {
 		return nil, errors.New("data not found")
+	}
+	if tx.Error != nil {
+		return nil, errors.New(tx.Error.Error())
 	}
 
 	return
+}
+
+func (a *Activity) isActivityExist(DB *gorm.DB) bool {
+	var act Activity
+	tx := DB.Table(a.TableName())
+	tx.First(&act, "id", a.Id)
+	if tx.RowsAffected >= 1 {
+		return true
+	} else {
+		return false
+	}
 }
 
 func (a *Activity) GetOneActivity(DB *gorm.DB) (out *Activity, err error) {
@@ -39,8 +53,11 @@ func (a *Activity) GetOneActivity(DB *gorm.DB) (out *Activity, err error) {
 	tx := DB.Table(a.TableName())
 	tx.First(&out, "id = ?", a.Id)
 
-	if tx.Error != nil {
+	if tx.RowsAffected == 0 {
 		return nil, errors.New("data not found")
+	}
+	if tx.Error != nil {
+		return nil, errors.New(tx.Error.Error())
 	}
 
 	return
@@ -86,9 +103,11 @@ func (a *Activity) UpdateActivity(DB *gorm.DB) (out *Activity, err error) {
 func (a *Activity) DeleteActivity(DB *gorm.DB) (err error) {
 
 	tx := DB.Table(a.TableName()).Delete(&a)
-
-	if tx.Error != nil {
+	if tx.RowsAffected == 0 {
 		return errors.New("data not found")
+	}
+	if tx.Error != nil {
+		return errors.New("delete failed")
 	}
 	return
 }

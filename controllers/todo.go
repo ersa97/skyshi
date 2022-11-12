@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"skyshi/models"
 	"strconv"
@@ -13,6 +14,7 @@ import (
 func (s *SkyshiService) GetAllTodoItems(w http.ResponseWriter, r *http.Request) {
 
 	var todo models.Todo
+	todo.ActivityGroupId, _ = strconv.Atoi(r.FormValue("activity_group_id"))
 	result, err := todo.GetAllTodo(s.DB)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -65,8 +67,10 @@ func (s *SkyshiService) CreateTodoItems(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
+	isactive := true
+
 	body.CreatedAt = time.Now()
-	body.IsActive = 1
+	body.IsActive = &isactive
 
 	result, err := body.CreateTodo(s.DB)
 	if err != nil {
@@ -109,6 +113,7 @@ func (s *SkyshiService) DeleteTodoItems(w http.ResponseWriter, r *http.Request) 
 func (s *SkyshiService) UpdateTodoItems(w http.ResponseWriter, r *http.Request) {
 
 	var body models.Todo
+
 	err := json.NewDecoder(r.Body).Decode(&body)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -121,6 +126,8 @@ func (s *SkyshiService) UpdateTodoItems(w http.ResponseWriter, r *http.Request) 
 	body.Id, _ = strconv.Atoi(mux.Vars(r)["id"])
 
 	body.UpdatedAt = time.Now()
+
+	fmt.Println(body.IsActive)
 
 	result, err := body.UpdateTodo(s.DB)
 	if err != nil {
