@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"os"
 	"skyshi/controllers"
 	"skyshi/database"
 	"skyshi/routes"
@@ -12,9 +11,7 @@ import (
 )
 
 var (
-	APPLICATION_PORT string
-	DATABASE_URL     string
-	db               *gorm.DB
+	db *gorm.DB
 )
 
 func main() {
@@ -22,9 +19,6 @@ func main() {
 	if err != nil {
 		log.Println("Error loading .env file")
 	}
-
-	APPLICATION_PORT = os.Getenv("APPLICATION_PORT")
-	DATABASE_URL = os.Getenv("DATABASE_URL")
 
 	db := database.ConnectMariaDB(3) // init database connection
 

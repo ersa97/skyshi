@@ -52,7 +52,7 @@ func Mux(skyshiService controllers.SkyshiService) {
 
 	})
 
-	appPort := os.Getenv("APPLICATION_PORT")
+	appPort := "3030"
 
 	log.Println("Running at " + os.Getenv("APP_URL") + ":" + appPort + "/")
 
